@@ -69,3 +69,15 @@ paths:
                       format: int32
               firstName:
                 type: string
+        default:
+          description: unexpected error
+          schema:
+            title: Error
+            type: object
+            properties:
+              details:
+                type: string
+              id:
+                type: string
+              message:
+                type: string
