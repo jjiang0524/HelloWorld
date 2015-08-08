@@ -7,25 +7,25 @@
     "paths": {
         "/Account": {
             "get": {
-                "description": "Gets `Reward Account` objects.\nOptional query param of **size** determines\nsize of returned array\n",
+                "description": "Gets `Reward Account` objects.",
                 "parameters": [
                     {
-                        "name": "size",
+                        "name": "merchantId",
                         "in": "query",
-                        "description": "Size of array",
+                        "description": "identifier of the merchant",
                         "required": true,
-                        "type": "number",
-                        "format": "double"
+                        "type": "integer",
+                        "format": "int32"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "Successful response",
                         "schema": {
-                            "title": "ArrayOfPersons",
+                            "title": "ArrayOfAccounts",
                             "type": "array",
                             "items": {
-                                "title": "Person",
+                                "title": "Account",
                                 "type": "object",
                                 "properties": {
                                     "name": {
