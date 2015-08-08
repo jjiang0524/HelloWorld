@@ -1,0 +1,83 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: RewardAccounts API Specification
+  description: |
+    Date       | Version | Notes          |
+    -----------|---------|----------------|
+    2015-08-08 | 1.0.0   | Initial draft  
+  contact:
+    name: "Loyalty/Reward team I.T team"
+host: <hostName>
+schemes:
+  - https
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /RewardAccounts:
+    get:
+      description: Get a list of reward accounts
+      parameters:
+        - name: clientId
+          in: query
+          description: The clients Identifier, i.e, RBC client card number.
+          required: true
+          type: integer
+          format: int32
+        - name: totalAmount
+          in: query
+          description: dollar amount.
+          required: true
+          type: number
+          format: double
+        - name: merchantId
+          in: query
+          description: The merchant Id for which Conversion rates are requried.
+          required: true
+          type: integer
+          format: int32
+        - name: merchantSecret
+          in: query
+          description: merchant secret.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: clientAccounts
+            type: object
+            properties:
+              rewardAccounts:
+                type: array
+                items:
+                  title: rewardAccount
+                  type: object
+                  properties:
+                    RBCProductAccountID:
+                      type: string
+                    RBCProductType:
+                      type: string
+                    pointBalance:
+                      type: integer
+                      format: int32
+                    pointRequired:
+                      type: integer
+                      format: int32
+              firstName:
+                type: string
+        default:
+          description: unexpected error
+          schema:
+            title: Error
+            type: object
+            properties:
+              details:
+                type: string
+              id:
+                type: string
+              message:
+                type: string
