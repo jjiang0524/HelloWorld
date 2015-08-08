@@ -1,48 +1,71 @@
-# Example YAML to get you started quickly.
-# Be aware that YAML has indentation based scoping.
-# Code completion support is available so start typing for available options.
 swagger: '2.0'
-
-# This is your document metadata
 info:
-  version: "0.0.0"
-  title: PwP-DI Account API
-
-# Describe your paths here
+  version: 1.0.0
+  title: RewardAccounts API Specification
+  description: |
+    Date       | Version | Notes          |
+    -----------|---------|----------------|
+    2015-08-08 | 1.0.0   | Initial draft  
+  contact:
+    name: "Loyalty/Reward team I.T team"
+host: <hostName>
+schemes:
+  - https
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
 paths:
-  # This is a path endpoint. Change it.
-  /Account:
-    # This is a HTTP operation
+  /RewardAccounts:
     get:
-      # Describe this verb here. Note: you can use markdown
-      description: |
-        Gets `Reward Account` objects.
-        Optional query param of **size** determines
-        size of returned array
-      # This is array of GET operation parameters:
+      description: Get a list of reward accounts
       parameters:
-        # An example parameter that is in query and is required
-        - name: size
+        - name: clientId
           in: query
-          description: Size of array
+          description: The clients Identifier, i.e, RBC client card number.
+          required: true
+          type: integer
+          format: int32
+        - name: totalAmount
+          in: query
+          description: dollar amount.
           required: true
           type: number
           format: double
-      # Expected responses for this operation:
+        - name: merchantId
+          in: query
+          description: The merchant Id for which Conversion rates are requried.
+          required: true
+          type: integer
+          format: int32
+        - name: merchantSecret
+          in: query
+          description: merchant secret.
+          required: false
+          type: string
       responses:
-        # Response code
-        200:
+        '200':
           description: Successful response
-          # A schema describing your response object.
-          # Use JSON Schema format
           schema:
-            title: ArrayOfPersons
-            type: array
-            items:
-              title: Person
-              type: object
-              properties:
-                name:
-                  type: string
-                single:
-                  type: boolean
+            title: clientAccounts
+            type: object
+            properties:
+              rewardAccounts:
+                type: array
+                items:
+                  title: rewardAccount
+                  type: object
+                  properties:
+                    RBCProductAccountID:
+                      type: string
+                    RBCProductType:
+                      type: string
+                    pointBalance:
+                      type: integer
+                      format: int32
+                    pointRequired:
+                      type: integer
+                      format: int32
+              firstName:
+                type: string
